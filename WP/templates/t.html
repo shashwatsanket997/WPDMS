@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+ {% load staticfiles %}
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Water Plant Details Management S">
+    <meta name="author" content="Shashwat Sanket">
+
+    <title>WPDMS</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="{% static 'vendor/metisMenu/metisMenu.min.css' %}" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="{% static 'dist/css/sb-admin-2.css' %}" rel="stylesheet">
+
+    <!-- Morris Charts CSS -->
+    <link href="{% static 'vendor/morrisjs/morris.css' %}" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="{% static 'vendor/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+<style>
+img {
+    margin-top:25px;
+    margin-bottom:10px;
+}
+a:hover {
+  background-color: #337AB7;
+}
+
+.my-wrapper {
+
+margin-top:10px;
+margin-left: 25px;
+margin-right: 25px;
+margin-bottom: 10px;
+}
+ 
+table {
+    border-collapse: collapse;
+}
+</style>
+
+</head>
+
+<body class="my-wrapper">
+    
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">List of New Water Plants</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <div class="row">
+            <form role="form" method="POST" action="#">
+            <div class="col-lg-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h4><i class="fa fa-filter"></i>  Apply Filters</h4>
+                    </div>
+                    <div class="panel-body">
+                    {% if success_message %}
+                            <div class="alert alert-success">
+                            <strong>{{ success_message }}</strong>
+                            </div>
+                    {% endif %}
+                    {% if error_message %}
+                            <div class="alert alert-danger">
+                            <strong>{{ error_message }}</strong>
+                            </div>
+                    {% endif %}
+                             
+                    
+                    
+                        <div class="col-lg-2">
+                            <div class="form-group">
+                                <label>District</label>
+                                    <select name="district" id="id_district" class="form-control">
+                                    <option value="NULL">---------</option> 
+                                    {% for m in district%}
+                                        <option>{{ m }}</option>
+                                    {%endfor%}
+                                    </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-2">
+                            <div class="form-group">
+                                <label>Mandal</label>
+                                    <select name="mandal" id="id_mandal" class="form-control">
+                                    <option value="NULL">---------</option>
+                                    {% for m in mandal%}
+                                        <option>{{ m }}</option>
+                                    {%endfor%}
+                                    </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label>Gram Panchayat</label>
+                                    <select name="gram_panchayat" id="id_gram_panchayat" class="form-control">
+                                    <option value="NULL">---------</option>
+                                    {% for m in gram_panchayat%}
+                                        <option>{{ m }}</option>
+                                    {%endfor%}
+                                    </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                        <div class="form-group">
+                                <label>Village</label>
+                                    <select name="village" id="id_village" class="form-control">
+                                    <option value="NULL">---------</option>
+                                    {% for m in village%}
+                                        <option value="{{m}}">{{ m }}</option>
+                                    {%endfor%}
+                                    </select>
+                            </div>
+
+                        </div>
+                        <div class="col-lg-2">
+                            <div class="form-group">
+                                <label>Constency</label>
+                                    <select name="constency" id="id_constency" class="form-control">
+                                    <option value="NULL">---------</option>
+                                    {% for m in constency%}
+                                        <option>{{ m }}</option>
+                                    {%endfor%}
+                                    </select>
+                            </div>
+                        </div>
+                        
+                     </div>
+                </div>
+              </div>
+                </form>
+            </div>
+            <div class="row">
+                  <div class="col-lg-8">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                           Water Plants
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                         {% if success_message %}
+                            <div class="alert alert-success">
+                            <strong>{{ success_message }}</strong>
+                            </div>
+                        {% endif %}
+                        <div  style="overflow-x:auto;">
+                        <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+                            <thead>
+                            <tr>
+                                <th colspan=2>Name of Plant</th>
+                                <th colspan=2>Jan</th>
+                                <th colspan=2>Feb</th>
+                                <th colspan=2>March</th>
+                                <th colspan=2>April</th>
+                                <th colspan=2>May</th>
+                                <th colspan=2>June</th>
+                                <th colspan=2>July</th>
+                                <th colspan=2>Aug</th>
+                                <th colspan=2>Sept</th>
+                                <th colspan=2>Oct</th>
+                                <th colspan=2>Nov</th>
+                                <th colspan=2>Dec</th>
+                            </tr>
+                            </thead>
+                            <tbody id="repair_parts_data">
+                            {% for i in data %}
+                                <tr class="odd gradeX">
+                                    <td colspan=2>{{i.name}}</td>
+                                    {% for j in i.list_date%}
+                                    {% if not j %}
+                                    <td colspan=1>-</td>
+                                    {% else %}
+                                    <td colspan=1 class="success">{{j}}</td>
+                                    {% endif %}
+                                    {% endfor%}
+                                </tr>
+                            {%endfor%}
+                            </tbody>
+                            </table>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+              </div>
+</body>
+        
+ <script>
+    $(document).ready(function() {
+        $('#dataTables-example').DataTable({
+            responsive: true
+        });
+    });
+    </script>
+
+
+<script>
+      $("#id_district").change(function(){
+       
+      var url = $("#WaterPlantForm").attr("data-user-url");  // get the url of the `load_cities` view
+      var district = $("#id_district").val();  // get the selected country ID from the HTML input
+      console.log(district)
+      $.ajax({                       // initialize an AJAX request
+        url: "{% url 'WP:ajax_load_mandal'%}",                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+        data: {
+          'district': district       // add the country id to the GET parameters
+        },
+        success: function (data) {
+             // `data` is the return of the `load_cities` view function
+            
+          $("#id_mandal").html(data);
+            // replace the contents of the city input with the data that came from the server
+        }
+      });
+    });
+  </script>
+
+  <script>
+      $("#id_mandal").change(function(){
+       
+      var url = $("#WaterPlantForm").attr("data-user-url");  // get the url of the `load_cities` view
+      var mandal = $("#id_mandal").val();  // get the selected country ID from the HTML input
+      console.log(mandal)
+      $.ajax({                       // initialize an AJAX request
+        url: "{% url 'WP:ajax_load_gram_panchayat'%}",                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+        data: {
+          'mandal': mandal       // add the country id to the GET parameters
+        },
+        success: function (data) {   // `data` is the return of the `load_cities` view function
+          $("#id_gram_panchayat").html(data);
+            // replace the contents of the city input with the data that came from the server
+        }
+      });
+    });
+  </script>
+
+  <script>
+      $("#id_gram_panchayat").change(function(){
+       
+      var url = $("#WaterPlantForm").attr("data-user-url");  // get the url of the `load_cities` view
+      var gram_panchayat = $("#id_gram_panchayat").val();  // get the selected country ID from the HTML input
+      console.log(gram_panchayat)
+      $.ajax({                       // initialize an AJAX request
+        url: "{% url 'WP:ajax_load_village'%}",                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+        data: {
+          'gram_panchayat': gram_panchayat       // add the country id to the GET parameters
+        },
+        success: function (data) {   // `data` is the return of the `load_cities` view function
+          $("#id_village").html(data);
+            // replace the contents of the city input with the data that came from the server
+        }
+      });
+    });
+  </script>
+
+
+<script>
+      $("#id_village").change(function(){
+       
+      var url = $("#WaterPlantForm").attr("data-user-url");  // get the url of the `load_cities` view
+      var village = $("#id_village").val();  // get the selected country ID from the HTML input
+      $.ajax({                       // initialize an AJAX request
+        url: "{% url 'WP:ajax_load_constency'%}",                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+        data: {
+          'village': village       // add the country id to the GET parameters
+        },
+        success: function (data) {   // `data` is the return of the `load_cities` view function
+          $("#id_constency").html(data);
+            // replace the contents of the city input with the data that came from the server
+        }
+      });
+    });
+  </script>
+
+<script>
+      $("#id_district,#id_mandal,#id_gram_panchayat,#id_village,#id_constency").change(function(){
+       
+      var url = $("#WaterPlantForm").attr("data-user-url");  // get the url of the `load_cities` view
+      var gram_panchayat=$("#id_gram_panchayat").val();
+      var constency=$("#id_constency").val();
+      var district=$("#id_district").val();
+      var mandal=$("#id_mandal").val();
+      var village = $("#id_village").val();  // get the selected country ID from the HTML input
+      $.ajax({                       // initialize an AJAX request
+        url: "{% url 'WP:filter-ajax'%}",                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+        data: {
+          'village': village,
+          'mandal': mandal,
+          'gram_panchayat':gram_panchayat,
+          'district':district,
+          'constency':constency       // add the country id to the GET parameters
+        },
+        success: function (data) {   // `data` is the return of the `load_cities` view function
+          $("#ajax-filter").html(data);
+            // replace the contents of the city input with the data that came from the server
+        }
+      });
+    });
+  </script>
+
+
+
+
+  <!-- jQuery -->
+  <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+
+  <!-- Bootstrap Core JavaScript -->
+  <script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+
+  <!-- Metis Menu Plugin JavaScript -->
+  <script src="{% static 'vendor/metisMenu/metisMenu.min.js' %}"></script>
+
+  <!-- Morris Charts JavaScript -->
+  <script src="{% static 'vendor/raphael/raphael.min.js' %}"></script>
+  <script src="{% static 'vendor/morrisjs/morris.min.js' %}"></script>
+  <script src="{% static 'data/morris-data.js' %}"></script>
+
+  <script src="{% static 'vendor/datatables/js/jquery.dataTables.min.js' %}"></script>
+  <script src="{% static 'vendor/datatables-plugins/dataTables.bootstrap.min.js' %}"></script>
+  <script src="{% static 'vendor/datatables-responsive/dataTables.responsive.js' %}"></script>   
+  <!-- Custom Theme JavaScript -->
+  <script src="{% static 'dist/js/sb-admin-2.js' %}"></script>
+  <script src="{% static 'vendor/bootstrap/js/myjs.js' %}"></script>
+

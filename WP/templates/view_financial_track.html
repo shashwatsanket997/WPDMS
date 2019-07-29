@@ -1,0 +1,310 @@
+{% extends 'base.html' %}
+{% block body %}
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <center><h1 class="page-header" style="color:#5CB85C;"><i class="fa fa-rupee"></i>  Financial Report <a href="{% url 'WP:complete_financial_report' %}" class="btn btn-primary"><i class="fa fa-edit"></i> Detailed Report</a></h1></center>
+                    
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-green">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <span style="font-size: 25px" >Monthly Financial Stats for the year</span>
+                                </div>
+                            
+                            <div class="col-lg-3" style="float: right">
+                                <select id="list-of-year" class="form-control">
+        
+                                </select>
+                            </div>
+                            </div> 
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                         
+                        <div style="overflow-x:auto;">
+                        <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+                            <thead>
+                            <tr>
+                                <th colspan=2 style="padding-bottom: 45px;"><center style="font-size: 17px;color: #5CB85C;">Name of Water Plant</center>
+                                
+                                </th>
+                                <th colspan=2><center style="font-size: 20px;color: #5CB85C; align-content: center">Jan</center>
+                                    <hr>
+                                  <center>F | L</center>
+                                </th> 
+                                <th colspan=2><center style="font-size: 20px;color: #5CB85C; align-content: center">Feb</center>
+                                    <hr>
+                                  <center>F | L</center>
+                                </th> 
+                                <th colspan=2><center style="font-size: 20px;color: #5CB85C; align-content: center">Mar</center>
+                                    <hr>
+                                  <center>F | L</center>
+                                </th> 
+                                <th colspan=2><center style="font-size: 20px;color: #5CB85C; align-content: center">Apr</center>
+                                    <hr>
+                                  <center>F | L</center>
+                                </th> 
+                                <th colspan=2><center style="font-size: 20px;color: #5CB85C; align-content: center">May</center>
+                                    <hr>
+                                  <center>F | L</center>
+                                </th> 
+                                <th colspan=2><center style="font-size: 20px;color: #5CB85C; align-content: center">Jun</center>
+                                    <hr>
+                                  <center>F | L</center>
+                                </th> 
+                                <th colspan=2><center style="font-size: 20px;color: #5CB85C; align-content: center">Jul</center>
+                                    <hr>
+                                  <center>F | L</center>
+                                </th> 
+                                <th colspan=2><center style="font-size: 20px;color: #5CB85C; align-content: center">Aug</center>
+                                    <hr>
+                                  <center>F | L</center>
+                                </th> 
+                                <th colspan=2><center style="font-size: 20px;color: #5CB85C; align-content: center">Sept</center>
+                                    <hr>
+                                  <center>F | L</center>
+                                </th> 
+                                <th colspan=2><center style="font-size: 20px;color: #5CB85C; align-content: center">Oct</center>
+                                    <hr>
+                                  <center>F | L</center>
+                                </th> 
+                                <th colspan=2><center style="font-size: 20px;color: #5CB85C; align-content: center">Nov</center>
+                                    <hr>
+                                  <center>F | L</center>
+                                </th> 
+                                <th colspan=2><center style="font-size: 20px;color: #5CB85C; align-content: center">Dec</center>
+                                    <hr>
+                                  <center>F | L</center>
+                                </th> 
+                            </tr>
+                            </thead>
+                            <tbody id="consumable_track_data">
+                            {% for i in data %}
+                                <tr class="odd gradeX">
+                                        <td colspan=2><strong><a href="{% url 'WP:detailed_FP' i.pk %}">{{i.plant_name}}: {{i.plant_name.plant_type}}</a></strong></td>
+                                    {% if not i.Jan %}
+                                        <td colspan=1>-</td>
+                                        <td colspan=1>-</td>
+                                    {% else %}
+                                        <td colspan=1 class="success"><i class="fa fa-rupee"></i>{{i.Jan.filters}}</td>
+                                        <td colspan=1 class="success"><i class="fa fa-rupee"></i>{{i.Jan.liquid_case}}</td>
+                                    {% endif %}
+                                    {% if not i.Feb %}
+                                        <td colspan=1>-</td>
+                                        <td colspan=1>-</td>
+                                    {% else %}
+                                        <td colspan=1 class="success"><i class="fa fa-rupee"></i>{{i.Feb.filters}}</td>
+                                        <td colspan=1 class="success"><i class="fa fa-rupee"></i>{{i.Feb.liquid_case}}</td>
+                                    {% endif %}
+                                    {% if not i.March %}
+                                        <td colspan=1>-</td>
+                                        <td colspan=1>-</td>
+                                    {% else %}
+                                        <td colspan=1 class="success"><i class="fa fa-rupee"></i>{{i.March.filters}}</td>
+                                        <td colspan=1 class="success"><i class="fa fa-rupee"></i>{{i.March.liquid_case}}</td>
+                                    {% endif %}
+                                    {% if not i.April %}
+                                        <td colspan=1>-</td>
+                                        <td colspan=1>-</td>
+                                    {% else %}
+                                        <td colspan=1 class="success"><i class="fa fa-rupee"></i>{{i.April.filters}}</td>
+                                        <td colspan=1 class="success"><i class="fa fa-rupee"></i>{{i.April.liquid_case}}</td>
+                                    {% endif %}
+                                    {% if not i.May %}
+                                        <td colspan=1>-</td>
+                                        <td colspan=1>-</td>
+                                    {% else %}
+                                        <td colspan=1 class="success"><i class="fa fa-rupee"></i>{{i.May.filters}}</td>
+                                        <td colspan=1 class="success"><i class="fa fa-rupee"></i>{{i.May.liquid_case}}</td>
+                                    {% endif %}
+                                    {% if not i.June %}
+                                        <td colspan=1>-</td>
+                                        <td colspan=1>-</td>
+                                    {% else %}
+                                        <td colspan=1 class="success"><i class="fa fa-rupee"></i>{{i.June.filters}}</td>
+                                        <td colspan=1 class="success"><i class="fa fa-rupee"></i>{{i.June.liquid_case}}</td>
+                                    {% endif %}
+                                    {% if not i.July %}
+                                        <td colspan=1>-</td>
+                                        <td colspan=1>-</td>
+                                    {% else %}
+                                        <td colspan=1 class="success"><i class="fa fa-rupee"></i>{{i.July.filters}}</td>
+                                        <td colspan=1 class="success"><i class="fa fa-rupee"></i>{{i.July.liquid_case}}</td>
+                                    {% endif %}
+                                    {% if not i.Aug %}
+                                        <td colspan=1>-</td>
+                                        <td colspan=1>-</td>
+                                    {% else %}
+                                        <td colspan=1 class="success"><i class="fa fa-rupee"></i>{{i.Aug.filters}}</td>
+                                        <td colspan=1 class="success"><i class="fa fa-rupee"></i>{{i.Aug.liquid_case}}</td>
+                                    {% endif %}
+                                    {% if not i.Sept %}
+                                        <td colspan=1>-</td>
+                                        <td colspan=1>-</td>
+                                    {% else %}
+                                        <td colspan=1 class="success"><i class="fa fa-rupee"></i>{{i.Sept.filters}}</td>
+                                        <td colspan=1 class="success"><i class="fa fa-rupee"></i>{{i.Sept.liquid_case}}</td>
+                                    {% endif %}
+                                    {% if not i.Oct %}
+                                        <td colspan=1>-</td>
+                                        <td colspan=1>-</td>
+                                    {% else %}
+                                        <td colspan=1 class="success"><i class="fa fa-rupee"></i>{{i.Oct.filters}}</td>
+                                        <td colspan=1 class="success"><i class="fa fa-rupee"></i>{{i.Oct.liquid_case}}</td>
+                                    {% endif %}
+                                    {% if not i.Nov %}
+                                        <td colspan=1>-</td>
+                                        <td colspan=1>-</td>
+                                    {% else %}
+                                        <td colspan=1 class="success"><i class="fa fa-rupee"></i>{{i.Nov.filters}}</td>
+                                        <td colspan=1 class="success"><i class="fa fa-rupee"></i>{{i.Nov.liquid_case}}</td>
+                                    {% endif %}
+                                    {% if not i.Dec %}
+                                        <td colspan=1>-</td>
+                                        <td colspan=1>-</td>
+                                    {% else %}
+                                        <td colspan=1 class="success"><i class="fa fa-rupee"></i>{{i.Dec.filters}}</td>
+                                        <td colspan=1 class="success"><i class="fa fa-rupee"></i>{{i.Dec.liquid_case}}</td>
+                                    {% endif %}
+
+                                </tr>
+                            {%endfor%}
+                            </tbody>
+                            </table>
+                        </div>
+                        
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <!--Pause-->
+                        <div class="panel panel-green">
+                          <div class="panel-heading">
+                             <i class="fa fa-list-alt"></i> Yearly Financial Status
+                        </div>
+                                <div class="panel-body">
+                                        <div style="overflow-x:auto;">
+                                <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example-2">
+                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                </div>
+                <div class="col-lg-6" style="color:#5CB85C">
+                    <div class="panel panel-green">
+                        <div class="panel-heading">
+                                <div class="row">
+                                 <div class="col-lg-4">
+                                    <span style="font-size: 18px"><i class="fa fa-bar-chart-o"></i>Graph</span>
+                                  </div>
+                                 <div class="col-lg-4">
+                                    <select class="form-control" id="waterplants"><option>A1</option></select>
+                                 </div>
+                                 <div class="col-lg-4">
+                                    <select class="form-control" id="list-of-year1"></select>   
+                                 </div>
+                                 </div>
+                        </div>
+                        <div class="panel-body" style="color:#5CB85C" id="graph">
+                            <div id="morris-bar-chart"></div>
+                            
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                </div>
+            </div>    
+        </div>
+
+ <script>
+    $(document).ready(function() {
+        $('#dataTables-example').DataTable({
+            responsive: true
+        });
+    });
+    </script>
+
+<script>
+    $.ajax({
+        url:"{% url 'WP:get_years' %}",
+        success:function(data){
+            $('#list-of-year').html(data);
+            $('#list-of-year1').html(data);
+        }
+
+    })
+</script>
+<script>
+        $.ajax({
+            url:"{% url 'WP:get_water_plants' %}",
+            success:function(data){
+                $('#waterplants').html(data);
+            }
+        })
+    </script>
+
+<script>    
+    $('#list-of-year').change(function(){
+        var year=$('#list-of-year').val();
+        $.ajax({
+            url:"{% url 'WP:ajax_view_financial_track' %}",
+            data:{
+                'year':year
+            },
+            success:function(data){
+                $("#consumable_track_data").html(data);
+            }
+        });
+    });
+
+</script>
+<script>
+    $.ajax({
+        url:"{% url 'WP:view_financial_track_yearly' %}",
+        success:function(data){
+            $('#dataTables-example-2').html(data);
+        }
+
+    })
+</script>
+
+<script>
+        $("#list-of-year1").change(function(){
+        var year=$('#list-of-year1').val()
+        var wp=$('#waterplants').val()
+        $.ajax({
+            data:{'year':year,'wp':wp},
+            url:"{% url 'WP:monthly_bar_graph_f' %}",
+            success:function(data){
+                $('#graph').html(data);
+            }
+        })
+        });
+        
+        </script>
+        <script>
+                $("#waterplants").change(function(){
+                var year=$('#list-of-year1').val()
+                var wp=$('#waterplants').val()
+                $.ajax({
+                    data:{'year':year,'wp':wp},
+                    url:"{% url 'WP:monthly_bar_graph_f' %}",
+                    success:function(data){
+                        $('#graph').html(data);
+                    }
+                })
+                });
+                
+        </script>
+        
+
+
+
+
+
+{% endblock %}

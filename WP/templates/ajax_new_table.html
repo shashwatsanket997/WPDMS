@@ -1,0 +1,13 @@
+{% for i in data %}
+    <tr class="odd gradeX">
+            <td><a href="{% url 'WP:WaterPlantUpdate' i.pk %}"><i class="fa fa fa-eye"></i></a>&nbsp;<a href="{% url 'WP:WaterPlantDelete' i.pk %}"><i class="fa fa fa-times-circle-o"></i></a></td>
+                    <td>{{i.loc.district}}</td>
+                 <td>{{i.loc.mandal}}</td>
+                    <td>{{i.loc.gram_panchayat}}</td>
+                                        <td>{{i.loc.village }}</td>
+                                        <td>{{i.loc.constency}}</td>
+                                        <td>{{i.populations}}</td>
+                                        <td>{{i.capacity}}</td>
+                                        <td>{{i.date}}</td>
+                                    </tr>
+                                {%endfor%}

@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block body %}
+
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+        <h1 class="page-header">Settings</h1>
+        
+        </div>
+    </div>
+    
+    <div class="row">
+        <form role="form" type="POST" action="#">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Warrenty Settings
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                            <label>Warrenty Year</label>
+                                            <input class="form-control" id="id_warrenty_date" name="warrnty_date" type="number"  required>
+                                            <p class="help-block">Enter number of years</p>
+                                </div>
+                            </div>   
+                            <div class="col-lg-6">
+                            <br>
+                            <button type="submit" class="btn btn-success"><span><i class="fa fa fa-check-square-o "></i></span> Submit</button>
+                            &nbsp;&nbsp;
+                            <button type="reset" class="btn btn-primary">Reset</button>
+                            
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+
+
+{% endblock %}

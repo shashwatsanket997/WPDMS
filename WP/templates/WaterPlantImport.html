@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% block body %}
+
+<div id="page-wrapper">
+        <div class="row">
+                <div class="col-lg-12">
+                <h1 class="page-header">Water Plant Import Data </h1>
+                
+                </div>
+            </div>
+<div class="row">
+    <form role="form" id="import-form" method="POST" action="{% url 'WP:water-plant-import' %}" enctype="multipart/form-data">
+    {% csrf_token %}
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Water Plant details(Import)
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <h1>Import Location Info</h1>
+                            {% if error_message1 %}
+                            <div class="alert alert-danger">
+                            <strong>{{ error_message1 }}</strong>
+                            </div>
+                            {% endif %}
+                            {% if process_status %}
+                            <div class="alert alert-info">
+                            <ul>
+                            {% for i in process_status%}
+                            <li><strong>{{ i }}</strong></li>
+                            {% endfor %}
+                            </ul>
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                        <label>File:</label>
+                                        <input class="form-control" id="csv_file" name="csv_file" type="file" style="height:100%;">
+                                        <p class="help-block">Import Excel/CSV file</p>
+                            </div>
+                        </div>   
+                        <div class="col-lg-6">
+                        <br>
+                        <button type="submit" onclick="myFunction()" class="btn btn-success"><span><i class="fa fa fa-upload"></i></span> Upload</button>
+                        &nbsp;&nbsp;
+                        <a href="{% url 'WP:sample_download' %}" class="btn btn-primary "><i class="fa fa-download"></i> Sample Download</a>
+                        
+                        </div>
+                        <div class="col-lg-12">
+                        <div id="myDiv" class="alert alert-danger"  style="display:none">
+                            <h3 class="badge-danger">Please do not refresh the page. The file is been processed </h3>
+                            <center>
+                            <i class="fa fa-circle-o-notch fa-spin" style="font-size:27px"></i>
+                            </center>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+</div>
+
+<script>
+    function myFunction(){
+     
+     var x=document.getElementById("myDiv");
+     var a=document.forms["import-form"]["csv_file"].value;
+     if(a!="")
+     {
+     if(x.style.display === "none")
+     {
+         x.style.display="block"
+     }
+     else
+     {
+         x.style.display="none"
+     }
+     }
+ }
+</script>
+
+{% endblock %}

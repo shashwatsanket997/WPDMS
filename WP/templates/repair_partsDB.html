@@ -1,0 +1,280 @@
+{% extends 'base.html' %}
+{% block body %}
+<div id="page-wrapper">
+
+
+<div class="row">
+<div class="col-lg-6">
+<h1 style="color:#F0AD4E"class="page-header"><i class="fa fa-database"></i> Repair Parts Database&nbsp;&nbsp;<a href="{% url 'WP:AddRepairParts' %}"<button type="button"  class="btn  btn-primary"><i class="fa fa-plus"></i> Add  Repair Parts </button></a></h1> 
+</div>
+<div class="col-lg-6">
+ <h1 class="page-header" style="color:#F0AD4E"  >Plant Name:<span id="ajax-plant-name"></span></h1>
+
+</div>
+</div>
+
+            <div class="row">
+            <form role="form" method="POST" action="{% url 'WP:AddConsumbles' %}">
+            {% csrf_token %}
+            <div class="col-lg-12">
+                <div class="panel panel-yellow">
+                    <div class="panel-heading">
+                        <h4><i class="fa  fa-cube "></i>  Choose Water Plant </h4>
+                    </div>
+                    <div class="panel-body">
+                    
+                    
+                        <div class="col-lg-2">
+                            <div class="form-group">
+                                <label>District</label>
+                                    <select name="district" id="id_district" class="form-control">
+                                    <option value="NULL">---------</option> 
+                                    {% for m in district%}
+                                        <option>{{ m }}</option>
+                                    {%endfor%}
+                                    </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-2">
+                            <div class="form-group">
+                                <label>Mandal</label>
+                                    <select name="mandal" id="id_mandal" class="form-control">
+                                    <option value="NULL">---------</option>
+                                    {% for m in mandal%}
+                                        <option>{{ m }}</option>
+                                    {%endfor%}
+                                    </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label>Gram Panchayat</label>
+                                    <select name="gram_panchayat" id="id_gram_panchayat" class="form-control">
+                                    <option value="NULL">---------</option>
+                                    {% for m in gram_panchayat%}
+                                        <option>{{ m }}</option>
+                                    {%endfor%}
+                                    </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                        <div class="form-group">
+                                <label>Village</label>
+                                    <select name="village" id="id_village" class="form-control">
+                                    <option value="NULL">---------</option>
+                                    {% for m in village%}
+                                        <option value="{{m}}">{{ m }}</option>
+                                    {%endfor%}
+                                    </select>
+                            </div>
+
+                        </div>
+                        <div class="col-lg-2">
+                            <div class="form-group">
+                                <label>Constency</label>
+                                    <select name="constency" id="id_constency" class="form-control">
+                                    <option value="NULL">---------</option>
+                                    {% for m in constency%}
+                                        <option>{{ m }}</option>
+                                    {%endfor%}
+                                    </select>
+                            </div>
+                        </div>
+                        
+                     </div>
+                </div>
+              </div>
+               
+            </div>
+            <div class="row">
+            <div class="col-lg-12">
+            <!-- Consumable list View here-->
+            <div class="panel panel-yellow">
+                <div class="panel-heading">
+                           <i class="fa fa-keyboard-o " ></i> Database
+                        </div>
+                <div class="panel-body">
+                {% if success_message %}
+                <div class="alert alert-success">
+                <strong>{{ success_message }}</strong>
+                </div>
+                {% endif %}
+                <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+                    <thead>
+                    <tr>
+                        <th><i class="fa fa fa-trash"></i></th>
+                        <th>Name of Part</th>
+                        <th>Description </th>
+                        <th>Amount</th>
+                    </tr>
+                    </thead>
+                    <tbody id="repair_parts_data">
+                    {% for i in data %}
+                        <tr class="odd gradeX">
+                            <td><a href="{% url 'WP:deleteRepairParts' i.pk %}"><i class="fa fa fa-times-circle-o"></i></a></td>
+                            <td>{{i.parts}}</td>
+                            <td>{{i.description}}</td>
+                            <td>{{i.amount}}</td>
+                        </tr>
+                    {%endfor%}
+                    </tbody>
+                    </table>
+                </div>
+            </div>
+            </div>
+            </form>
+            
+            </div>
+
+           
+                    
+                       
+          
+
+             
+</div>
+
+<script>
+      $("#id_district").change(function(){
+       
+      var url = $("#WaterPlantForm").attr("data-user-url");  // get the url of the `load_cities` view
+      var district = $("#id_district").val();  // get the selected country ID from the HTML input
+      console.log(district)
+      $.ajax({                       // initialize an AJAX request
+        url: "{% url 'WP:ajax_load_mandal_wp'%}",                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+        data: {
+          'district': district       // add the country id to the GET parameters
+        },
+        success: function (data) {
+             // `data` is the return of the `load_cities` view function
+            
+          $("#id_mandal").html(data);
+            // replace the contents of the city input with the data that came from the server
+        }
+      });
+    });
+  </script>
+
+  <script>
+      $("#id_mandal").change(function(){
+       
+      var url = $("#WaterPlantForm").attr("data-user-url");  // get the url of the `load_cities` view
+      var mandal = $("#id_mandal").val();  // get the selected country ID from the HTML input
+      console.log(mandal)
+      $.ajax({                       // initialize an AJAX request
+        url: "{% url 'WP:ajax_load_gram_panchayat_wp'%}",                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+        data: {
+          'mandal': mandal       // add the country id to the GET parameters
+        },
+        success: function (data) {   // `data` is the return of the `load_cities` view function
+          $("#id_gram_panchayat").html(data);
+            // replace the contents of the city input with the data that came from the server
+        }
+      });
+    });
+  </script>
+
+  <script>
+      $("#id_gram_panchayat").change(function(){
+       
+      var url = $("#WaterPlantForm").attr("data-user-url");  // get the url of the `load_cities` view
+      var gram_panchayat = $("#id_gram_panchayat").val();  // get the selected country ID from the HTML input
+      console.log(gram_panchayat)
+      $.ajax({                       // initialize an AJAX request
+        url: "{% url 'WP:ajax_load_village_wp'%}",                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+        data: {
+          'gram_panchayat': gram_panchayat       // add the country id to the GET parameters
+        },
+        success: function (data) {   // `data` is the return of the `load_cities` view function
+          $("#id_village").html(data);
+            // replace the contents of the city input with the data that came from the server
+        }
+      });
+    });
+  </script>
+
+
+<script>
+      $("#id_village").change(function(){
+       
+      var url = $("#WaterPlantForm").attr("data-user-url");  // get the url of the `load_cities` view
+      var village = $("#id_village").val();  // get the selected country ID from the HTML input
+      $.ajax({                       // initialize an AJAX request
+        url: "{% url 'WP:ajax_load_constency_wp'%}",                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+        data: {
+          'village': village       // add the country id to the GET parameters
+        },
+        success: function (data) {   // `data` is the return of the `load_cities` view function
+          $("#id_constency").html(data);
+            // replace the contents of the city input with the data that came from the server
+        }
+      });
+    });
+  </script>
+
+<script>
+      $("#id_district,#id_mandal,#id_gram_panchayat,#id_village,#id_constency").change(function(){
+       
+      var url = $("#WaterPlantForm").attr("data-user-url");  // get the url of the `load_cities` view
+      var gram_panchayat=$("#id_gram_panchayat").val();
+      var constency=$("#id_constency").val();
+      var district=$("#id_district").val();
+      var mandal=$("#id_mandal").val();
+      var village = $("#id_village").val();
+      if(village!="NULL" && gram_panchayat!="NULL" && constency!="NULL" && mandal!="NULL" && district!="NULL")
+      {
+      $.ajax({                       // initialize an AJAX request
+        url: "{% url 'WP:ajax_get_wp_name'%}",                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+        data: {
+          'village': village,
+          'mandal': mandal,
+          'gram_panchayat':gram_panchayat,
+          'district':district,
+          'constency':constency       // add the country id to the GET parameters
+        },
+        success: function (data) {   // `data` is the return of the `load_cities` view function
+          $("#ajax-plant-name").html(data);
+            // replace the contents of the city input with the data that came from the server
+        }
+      });
+      }
+      
+    });
+
+</script>
+
+<script>
+      $("#id_district,#id_mandal,#id_gram_panchayat,#id_village,#id_constency").change(function(){
+       
+      var url = $("#WaterPlantForm").attr("data-user-url");  // get the url of the `load_cities` view
+      var gram_panchayat=$("#id_gram_panchayat").val();
+      var constency=$("#id_constency").val();
+      var district=$("#id_district").val();
+      var mandal=$("#id_mandal").val();
+      var village = $("#id_village").val();
+      if(village!="NULL" && gram_panchayat!="NULL" && constency!="NULL" && mandal!="NULL" && district!="NULL")
+      {
+      $.ajax({                       // initialize an AJAX request
+        url: "{% url 'WP:table_repair_parts_data'%}",                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+        data: {
+          'village': village,
+          'mandal': mandal,
+          'gram_panchayat':gram_panchayat,
+          'district':district,
+          'constency':constency       // add the country id to the GET parameters
+        },
+        success: function (data) {   // `data` is the return of the `load_cities` view function
+          $("#repair_parts_data").html(data);
+            // replace the contents of the city input with the data that came from the server
+        }
+      });
+      }
+     
+    });
+
+</script>
+
+
+
+
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load template_tags %}
+{% block body %}
+
+
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+        <h1 class="page-header">Incharge User Create</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-primary">
+                    <div class="panel-heading">
+                            Create Incharge 
+                    </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                            {% if form.non_field_errors %}
+                            <div class="alert alert-danger" role='alert'>
+                                {{form.non_field_errors}}
+                            </div>
+                        
+                        {% endif %}
+                        
+                        {% for field in form %}
+                        {% for error in field.errors %}
+                            <div class="alert alert-danger" role='alert'>
+                                {{field.label}} : {{ error }}
+                            </div>
+                        {% endfor %}
+                        {% endfor %}
+                        {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-success " role='alert'>
+                                {{message}}
+                            </div>
+                        {% endfor %}
+                        
+                        {% endif %}
+                    </div>
+                </div>
+        <form role="form" method="POST" action="{% url 'WP:CreateIncharge' %}">
+            {% csrf_token %}
+                {% for field in form.visible_fields %}
+                <div class="form-group">
+            
+                    {{ field.label_tag }}<br>
+            
+                    {% if field %}
+                        {% add_attr field class='form-control' as field %}
+                    {% endif %}
+            
+                    {{ field }}
+            
+                </div>
+              
+            {% endfor %}
+            {% for field in form.hidden_fields %}
+                {{ field }}
+            {% endfor %}
+            <button class="btn btn-primary">Submit</button>
+        </form>
+        </div>
+        </div>
+    </div>
+    </div>
+</div>
+
+{% endblock %}

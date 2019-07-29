@@ -1,0 +1,15 @@
+<div class="list-group">
+{% for i in data %}
+   
+          <a href="{% url 'WP:AddConsumables_withpk' i.0.pk %}" class="list-group-item">
+          <i class="fa fa-warning fa-fw" style="color: #D9534F"></i><strong>Water Plant:- {{i.0}}</strong>
+          {% if i.3 %}
+           <span class="pull-right text-muted small"><em>Last deliverd:{{i.2}} days ago</em></span>
+            {% else %}
+            <span class="pull-right text-muted small"><em>No Consumbles deliverd</em></span>
+            {% endif %}
+            
+        </a>
+ 
+{% endfor %}
+</div>

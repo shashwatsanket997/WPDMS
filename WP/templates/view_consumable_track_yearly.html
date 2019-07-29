@@ -1,0 +1,22 @@
+<thead>
+    <tr>
+        <th colspan="2" style="font-size:18px; color:#4B3F91; align-content: center"><center>Name of Water Plant</center></th>
+        {% for i in years %}
+        <th colspan="2" ><center style="font-size: 18px;color:#4B3F91 ">{{i}}</center>
+        <hr>
+        <center>F | L</center>
+        </th>
+        {% endfor %}
+    </tr>
+    </thead>
+    <tbody id="ajax-yearly-stats">
+    {% for i in data %}
+        <tr class="odd gradeX">
+            <td colspan="2">{{i.0.plant_name}} : {{i.0.plant_name.plant_type}}</td>
+            {% for j in i%}
+            <td class="success">{{j.total_filter}}</td>
+            <td class="success">{{j.total_liquid_case}}</td>
+            {% endfor %}
+        </tr>
+    {%endfor%}
+    </tbody>

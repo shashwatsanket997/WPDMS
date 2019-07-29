@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% block body %}
+        {%csrf_token%}
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">Report Analysis</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <div class="row">
+                    <div class="col-lg-3 col-md-6">
+                            <div class="panel panel-info">
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col-xs-3">
+                                            <i class="fa fa-edit fa-5x"></i>
+                                        </div>
+                                        <div class="col-xs-9 text-right">
+                                            <div class="huge"><i class="fa fa-file-text-o"></i></div>
+                                            <div>Report Generator</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="{% url 'WP:ReportGenerator'%}">
+                                    <div class="panel-footer">
+                                        <span class="pull-left">Get Complete Report</span>
+                                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6">
+                                <div class="panel panel-purl">
+                                    <div class="panel-heading">
+                                        <div class="row">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-wrench  fa-5x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <div class="huge"><i class="fa fa-thumb-tack"></i></div>
+                                                <div>Consumables Track</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a href="{% url 'WP:consumable_track'%}">
+                                        <div class="panel-footer">
+                                            <span class="pull-left">Track</span>
+                                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6">
+                                    <div class="panel panel-green">
+                                        <div class="panel-heading">
+                                            <div class="row">
+                                                <div class="col-xs-3">
+                                                    <i class="fa fa-rupee fa-5x"></i>
+                                                </div>
+                                                <div class="col-xs-9 text-right">
+                                                    <div class="huge"><i class="fa fa-plus"></i></div>
+                                                    <div>Financial Report</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <a href="{% url 'WP:financial_track'%}">
+                                            <div class="panel-footer">
+                                                <span class="pull-left">View Details</span>
+                                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+            </div>
+
+        </div>
+{% endblock %}

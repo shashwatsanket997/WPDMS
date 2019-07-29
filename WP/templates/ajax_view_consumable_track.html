@@ -1,0 +1,90 @@
+{% for i in data %}
+                                <tr class="odd gradeX">
+                                    <td colspan=2>{{i.plant_name}}</td>
+                                    {% if not i.Jan %}
+                                        <td colspan=1>-</td>
+                                        <td colspan=1>-</td>
+                                    {% else %}
+                                        <td colspan=1 class="success">{{i.Jan.filters}}</td>
+                                        <td colspan=1 class="success">{{i.Jan.liquid_case}}</td>
+                                    {% endif %}
+                                    {% if not i.Feb %}
+                                        <td colspan=1>-</td>
+                                        <td colspan=1>-</td>
+                                    {% else %}
+                                        <td colspan=1 class="success">{{i.Feb.filters}}</td>
+                                        <td colspan=1 class="success">{{i.Feb.liquid_case}}</td>
+                                    {% endif %}
+                                    {% if not i.March %}
+                                        <td colspan=1>-</td>
+                                        <td colspan=1>-</td>
+                                    {% else %}
+                                        <td colspan=1 class="success">{{i.March.filters}}</td>
+                                        <td colspan=1 class="success">{{i.March.liquid_case}}</td>
+                                    {% endif %}
+                                    {% if not i.April %}
+                                        <td colspan=1>-</td>
+                                        <td colspan=1>-</td>
+                                    {% else %}
+                                        <td colspan=1 class="success">{{i.April.filters}}</td>
+                                        <td colspan=1 class="success">{{i.April.liquid_case}}</td>
+                                    {% endif %}
+                                    {% if not i.May %}
+                                        <td colspan=1>-</td>
+                                        <td colspan=1>-</td>
+                                    {% else %}
+                                        <td colspan=1 class="success">{{i.May.filters}}</td>
+                                        <td colspan=1 class="success">{{i.May.liquid_case}}</td>
+                                    {% endif %}
+                                    {% if not i.June %}
+                                        <td colspan=1>-</td>
+                                        <td colspan=1>-</td>
+                                    {% else %}
+                                        <td colspan=1 class="success">{{i.June.filters}}</td>
+                                        <td colspan=1 class="success">{{i.June.liquid_case}}</td>
+                                    {% endif %}
+                                    {% if not i.July %}
+                                        <td colspan=1>-</td>
+                                        <td colspan=1>-</td>
+                                    {% else %}
+                                        <td colspan=1 class="success">{{i.July.filters}}</td>
+                                        <td colspan=1 class="success">{{i.July.liquid_case}}</td>
+                                    {% endif %}
+                                    {% if not i.Aug %}
+                                        <td colspan=1>-</td>
+                                        <td colspan=1>-</td>
+                                    {% else %}
+                                        <td colspan=1 class="success">{{i.Aug.filters}}</td>
+                                        <td colspan=1 class="success">{{i.Aug.liquid_case}}</td>
+                                    {% endif %}
+                                    {% if not i.Sept %}
+                                        <td colspan=1>-</td>
+                                        <td colspan=1>-</td>
+                                    {% else %}
+                                        <td colspan=1 class="success">{{i.Sept.filters}}</td>
+                                        <td colspan=1 class="success">{{i.Sept.liquid_case}}</td>
+                                    {% endif %}
+                                    {% if not i.Oct %}
+                                        <td colspan=1>-</td>
+                                        <td colspan=1>-</td>
+                                    {% else %}
+                                        <td colspan=1 class="success">{{i.Oct.filters}}</td>
+                                        <td colspan=1 class="success">{{i.Oct.liquid_case}}</td>
+                                    {% endif %}
+                                    {% if not i.Nov %}
+                                        <td colspan=1>-</td>
+                                        <td colspan=1>-</td>
+                                    {% else %}
+                                        <td colspan=1 class="success">{{i.Nov.filters}}</td>
+                                        <td colspan=1 class="success">{{i.Nov.liquid_case}}</td>
+                                    {% endif %}
+                                    {% if not i.Dec %}
+                                        <td colspan=1>-</td>
+                                        <td colspan=1>-</td>
+                                    {% else %}
+                                        <td colspan=1 class="success">{{i.Dec.filters}}</td>
+                                        <td colspan=1 class="success">{{i.Dec.liquid_case}}</td>
+                                    {% endif %}
+
+                                </tr>
+                            {%endfor%}

@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% block body %}
+        {%csrf_token%}
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">Settings</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <div class="row">
+                    <div class="col-lg-3 col-md-6">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col-xs-3">
+                                            <i class="fa fa-edit fa-5x"></i>
+                                        </div>
+                                        <div class="col-xs-9 text-right">
+                                            <div class="huge"><i class="fa  fa-plus-square-o "></i></div>
+                                            <div>Warrenty Year</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="{% url 'WP:SetWarrentyDate'%}">
+                                    <div class="panel-footer">
+                                        <span class="pull-left">Set</span>
+                                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6">
+                                <div class="panel panel-purl">
+                                    <div class="panel-heading">
+                                        <div class="row">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-pencil fa-5x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <div class="huge"><i class="fa fa-thumb-tack"></i></div>
+                                                <div>Predefined Datas</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a href="{% url 'WP:CreateWaterPlantLoc'%}">
+                                        <div class="panel-footer">
+                                            <span class="pull-left">Give</span>
+                                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6">
+                                    <div class="panel panel-green">
+                                        <div class="panel-heading">
+                                            <div class="row">
+                                                <div class="col-xs-3">
+                                                    <i class="fa fa-database fa-5x"></i>
+                                                </div>
+                                                <div class="col-xs-9 text-right">
+                                                    <div class="huge"><i class="fa  fa-table"></i></div>
+                                                    <div>Predefine Database</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <a href="{% url 'WP:WaterPlantLocDB'%}">
+                                            <div class="panel-footer">
+                                                <span class="pull-left">Check</span>
+                                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+            </div>
+
+        </div>
+{% endblock %}

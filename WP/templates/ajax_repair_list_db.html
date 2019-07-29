@@ -1,0 +1,9 @@
+{% for i in data %}
+                        <tr class="odd gradeX">
+                           <td><a href="{% url 'WP:deleteRepairParts' i.pk %}"><i class="fa fa fa-times-circle-o"></i></a></td>
+                            <td>{{i.parts}}</td>
+                            <td>{{i.description}}</td>
+                            <td>{{i.amount}}</td>
+                        </tr>
+                    {%endfor%}
+

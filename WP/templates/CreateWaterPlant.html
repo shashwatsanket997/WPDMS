@@ -1,0 +1,268 @@
+{% extends 'base.html' %}
+{% block body %}
+
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Create Water Plant <a href="{% url 'WP:water-plant-import' %}" class="btn btn-primary">
+                    Import </a> <a href="{% url 'WP:CreateIncharge' %}" class="btn btn-primary"> Create Incharge </a></h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    <form role="form" method="POST" action="{% url 'WP:CreateWaterPlant' %}">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Fill the form to create water plant
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                {% if error_message %}
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        {% for i in error_message%}
+                                        <li><strong>{{ i }}</strong></li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                                {% endif %}
+                                {% if success_message %}
+                                <div class="alert alert-success">
+                                    <ul>
+                                        {% for i in success_message%}
+                                        <li><strong>{{ i }}</strong></li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                                {% endif %}
+
+                            </div>
+                            <div class="col-lg-6">
+                                <h1>Location Info</h1>
+
+
+                                <div class="form-group">
+                                    <label>District</label>
+                                    <input class="form-control" list="ajax_district" id="id_district" name="district"
+                                        required autocomplete="off" spellcheck="off">
+                                    <p class="help-block">Example: District name here.</p>
+                                    <datalist id="ajax_district">
+                                        {% for m in district%}
+                                        <option>{{ m }}</option>
+                                        {%endfor%}
+                                    </datalist>
+                                </div>
+                                <div class="form-group">
+                                    <label>Mandal</label>
+                                    <input class="form-control" list="ajax_mandal" id="id_mandal" name="mandal"
+                                        required autocomplete="off" spellcheck="off">
+                                    <p class="help-block">Example: Mandal name here.</p>
+                                    <datalist id="ajax_mandal">
+                                        {% for m in mandal%}
+                                        <option>{{m}}</option>
+                                        {%endfor%}
+                                    </datalist>
+                                </div>
+                                <div class="form-group">
+                                    <label>Gram panchayat</label>
+                                    <input class="form-control" list="ajax_gram_panchayat" id="id_gram_panchayat" name="gram_panchayat"
+                                        required autocomplete="off" spellcheck="off">
+                                    <p class="help-block">Example: Gram panchayat name here.</p>
+                                    <datalist id="ajax_gram_panchayat">
+                                        {% for m in gram_panchayat%}
+                                        <option>{{m}}</option>
+                                        {%endfor%}
+                                    </datalist>
+                                </div>
+                                <div class="form-group">
+                                    <label>Village/Habitation</label>
+                                    <input class="form-control" list="ajax_village" id="id_village" name="village"
+                                        required autocomplete="off" spellcheck="off">
+                                    <p class="help-block">Example: Village/Habitation name here.</p>
+                                    <datalist id="ajax_village">
+                                        {% for m in village%}
+                                        <option>{{m}}</option>
+                                        {%endfor%}
+                                    </datalist>
+                                </div>
+                                <div class="form-group">
+                                    <label>Constency</label>
+                                    <input class="form-control" list="ajax_constency" id="id_constency" name="constency"
+                                        required autocomplete="off" spellcheck="off">
+                                    <p class="help-block">Example: Constency name here.</p>
+                                    <datalist id="ajax_constency">
+                                        {% for m in constency%}
+                                        <option>{{m}}</option>
+                                        {%endfor%}
+                                    </datalist>
+                                </div>
+                                <div class="form-group">
+                                    <label>Population</label>
+                                    <input class="form-control" id="id_populations" name="populations">
+                                    <p class="help-block">Example: Population here.</p>
+                                </div>
+                                <div class="form-group">
+                                    <label for="id_plant_type">Plant Type:</label>
+                                    <select class="form-control" id="id_plant_type" name="plant_type">
+                                        <option value="None">-------</option>
+                                        <option value="Foundation">Foundation</option>
+                                        <option value="MPLADS">MPLADS</option>
+                                    </select>
+                                    <p class="help-block">Example: choose plant type.</p>
+                                </div>
+
+
+
+
+                            </div>
+                            <!-- /.col-lg-6 (nested) -->
+                            <div class="col-lg-6">
+                                <h1>Water Plant Characteristics</h1>
+                                <div class="form-group">
+                                    <label>Capacity</label>
+                                    <input class="form-control" type="number" id="id_capacity" name="capacity">
+                                    <p class="help-block">Example: Capacity of water plant.</p>
+                                </div>
+                                <div class="form-group">
+                                    <label>Date of Establishment</label>
+                                    <input class="form-control" type="date" id="id_date" name="date" required>
+                                    <p class="help-block">Example: Date of Establishment.</p>
+                                </div>
+                                <h2>Contact Info</h2>
+                                <div class="form-group">
+                                    <label>Contact Person</label>
+                                    <input class="form-control" id="id_contact_person" name="contact_person" required>
+                                    <p class="help-block">Example: Person name here.</p>
+                                </div>
+                                <div class="form-group">
+                                    <label>Contact Person Phone Number</label>
+                                    <input class="form-control" type="tel" maxlength="10" id="id_contact_number" name="contact_number"
+                                        required>
+                                    <p class="help-block">Example: Person's Phone number here.</p>
+                                </div>
+                                <div class="form-group">
+                                    <label>Operator Name</label>
+                                    <input class="form-control" id="id_operator_name" name="operator_name" required>
+                                    <p class="help-block">Example: Operator name here.</p>
+                                </div>
+                                <div class="form-group">
+                                    <label>Operator Phone Number</label>
+                                    <input class="form-control" type="tel" maxlength="10" id="id_operator_phone_number"
+                                        name="operator_phone_number" required>
+                                    <p class="help-block">Example: Operator's Phone number here.</p>
+                                </div>
+                                <div class="form-group">
+                                    <label>Incharge</label>
+                                    <select class="form-control" id="id_incharge" name="id_incharge">
+                                        {% for i in users %}
+                                        <option value="{{i.pk}}">{{i}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+
+                            </div>
+                            <!-- /.col-lg-6 (nested) -->
+                        </div>
+
+                        <div class="col-lg-12">
+                            <center>
+                                <button type="submit" class="btn btn-success">Submit</button>
+                                &nbsp;&nbsp;
+                                <a href="{% url 'WP:CreateWaterPlant' %}"><button type="button" class="btn btn-primary">Reset</button></a>
+                            </center>
+                        </div>
+                        <!-- /.row (nested) -->
+    </form>
+</div>
+<!-- /.panel-body -->
+</div>
+<!-- /.panel -->
+</div>
+<!-- /.col-lg-12 -->
+</div>
+<!-- /.row -->
+</div>
+
+<script>
+    $("#id_district").change(function () {
+
+        var url = $("#WaterPlantForm").attr("data-user-url"); // get the url of the `load_cities` view
+        var district = $("#id_district").val(); // get the selected country ID from the HTML input
+        console.log(district)
+        $.ajax({ // initialize an AJAX request
+            url: "{% url 'WP:ajax_load_mandal'%}", // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+            data: {
+                'district': district // add the country id to the GET parameters
+            },
+            success: function (data) {
+                // `data` is the return of the `load_cities` view function
+                $("#ajax_mandal").html(data);
+                // replace the contents of the city input with the data that came from the server
+            }
+        });
+    });
+</script>
+
+<script>
+    $("#id_mandal").change(function () {
+
+        var url = $("#WaterPlantForm").attr("data-user-url"); // get the url of the `load_cities` view
+        var mandal = $("#id_mandal").val(); // get the selected country ID from the HTML input
+        console.log(mandal)
+        $.ajax({ // initialize an AJAX request
+            url: "{% url 'WP:ajax_load_gram_panchayat'%}", // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+            data: {
+                'mandal': mandal // add the country id to the GET parameters
+            },
+            success: function (data) { // `data` is the return of the `load_cities` view function
+                $("#ajax_gram_panchayat").html(data);
+                // replace the contents of the city input with the data that came from the server
+            }
+        });
+    });
+</script>
+
+<script>
+    $("#id_gram_panchayat").change(function () {
+
+        var url = $("#WaterPlantForm").attr("data-user-url"); // get the url of the `load_cities` view
+        var gram_panchayat = $("#id_gram_panchayat").val(); // get the selected country ID from the HTML input
+        console.log(gram_panchayat)
+        $.ajax({ // initialize an AJAX request
+            url: "{% url 'WP:ajax_load_village'%}", // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+            data: {
+                'gram_panchayat': gram_panchayat // add the country id to the GET parameters
+            },
+            success: function (data) { // `data` is the return of the `load_cities` view function
+                $("#ajax_village").html(data);
+                // replace the contents of the city input with the data that came from the server
+            }
+        });
+    });
+</script>
+
+
+<script>
+    $("#id_village").change(function () {
+
+        var url = $("#WaterPlantForm").attr("data-user-url"); // get the url of the `load_cities` view
+        var village = $("#id_village").val(); // get the selected country ID from the HTML input
+        $.ajax({ // initialize an AJAX request
+            url: "{% url 'WP:ajax_load_constency'%}", // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+            data: {
+                'village': village // add the country id to the GET parameters
+            },
+            success: function (data) { // `data` is the return of the `load_cities` view function
+                $("#ajax_constency").html(data);
+                // replace the contents of the city input with the data that came from the server
+            }
+        });
+    });
+</script>
+
+
+{% endblock %}

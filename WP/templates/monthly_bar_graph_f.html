@@ -1,0 +1,30 @@
+<div id="morris-bar-chart"></div>
+
+<script>
+var graph_data;
+    var year="{{year}}";
+    var wp="{{wp}}";
+     $.ajax({
+        async: false,
+         data:{'year':year,'wp':wp
+          },
+         url:"{% url 'WP:monthly_financial_bar_gph' %}",
+            success:function(data){
+               graph_data=data;     
+            }
+        });
+        
+        $(function() {
+                Morris.Bar({
+                    element: 'morris-bar-chart',
+                    data: graph_data,
+                    xkey: 'y',
+                    ykeys: ['a', 'b'],
+                    labels: ['Filters A', 'liquid Case B'],
+                    hideHover: 'auto',
+                    resize: true
+                });
+            });
+        
+</script>
+        

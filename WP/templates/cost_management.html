@@ -1,0 +1,161 @@
+{% extends 'base.html' %}
+{% block body %}
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 style="color:#5CB85C"class="page-header"><i class="fa fa-rupee "></i>  Cost Management</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-green">
+                <div class="panel-heading">
+                    <h4><i class="fa fa-edit"></i> Update Cost </h4> 
+                </div>
+                <div class="panel-body">
+                    <form method="POST" role="form" action="{% url 'WP:cost-management' %}">
+                     {% csrf_token %}
+                        <div class="row">
+                            <div class="col-lg-12">
+                                {% if error_message %}
+                                <div class="alert alert-danger">
+                                <ul>
+                                {% for i in error_message%}
+                                <li><strong>{{ i }}</strong></li>
+                                {% endfor %}
+                                </ul>
+                                </div>
+                                {% endif %}
+                                {% if success_message %}
+                                <div class="alert alert-success">
+                                <ul>
+                                {% for i in success_message%}
+                                <li><strong>{{ i }}</strong></li>
+                                {% endfor %}
+                                </ul>
+                                </div>
+                                {% endif %}
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label>Filter </label>
+                                    <input class="form-control" id="id_filters" name="filter">
+                                    <p class="help-block">Enter the cost of per filter.</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label>liquid Case </label>
+                                    <input class="form-control" id="id_liquid" name="liquid">
+                                    <p class="help-block">Enter the cost of per liquid case.</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label>Date </label>
+                                    <input class="form-control" type="date" id="id_date" name="date">
+                                    <p class="help-block">Enter the date.</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <br>
+                                    <button type="submit" class="btn btn-success">Submit</button>
+                                    &nbsp;&nbsp;<button type="reset" class="btn btn-primary">Reset</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                <!-- Cost Update Forms Here -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Costing List will be here-->
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="panel panel-green">
+                <div class="panel-heading">
+                   <i class="fa fa-list-alt"></i> Cost Listing
+                </div>
+                <div class="panel-body">
+                {% if success_message %}
+                <div class="alert alert-success">
+                <strong>{{ success_message }}</strong>
+                </div>
+                {% endif %}
+                <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+                    <thead>
+                    <tr>
+                        <th><i class="fa fa fa-trash"></i></th>
+                        <th>Date</th>
+                        <th>Filter</th>
+                        <th>Liquid Case</th>
+                    </tr>
+                    </thead>
+                    <tbody id="ajax-cost">
+                    {% for i in data %}
+                        <tr class="odd gradeX">
+                            <td><a href="{% url 'WP:CostDelete' i.pk %}"><i class="fa fa fa-times-circle-o"></i></a></td>
+                            <td>{{i.date}}</td>
+                            <td>{{i.filters}}</td>
+                            <td>{{i.liquid}}</td>
+                        </tr>
+                    {%endfor%}
+                    </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+                    <div class="panel panel-green">
+                        <div class="panel-heading">
+                           <i class="fa fa-bar-chart-o"></i> Date Wise Cost Bar Graph
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div id="morris-bar-chart"></div>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+    </div>
+
+
+
+</div>
+<script>
+    $(document).ready(function() {
+        $('#dataTables-example').DataTable({
+            responsive: true
+        });
+    });
+    </script>
+
+<script>
+
+var graph_data;
+$.ajax({
+    async: false,
+    url:"{% url 'WP:cost_management_graph' %}",
+    success:function(data){
+        graph_data=data;     
+    }
+});
+
+$(function() {
+    Morris.Bar({
+        element: 'morris-bar-chart',
+        data: graph_data,
+        xkey: 'y',
+        ykeys: ['a', 'b'],
+        labels: ['Filter Cost', 'Liquid Case Cost'],
+        hideHover: 'auto',
+        resize: true
+    });
+});
+
+</script>
+
+{% endblock%}

@@ -1,0 +1,8 @@
+{% for i in data %}
+                        <tr class="odd gradeX">
+                           <td><a href="{% url 'WP:ConsumablesDelete' i.pk %}"><i class="fa fa fa-times-circle-o"></i></a></td>
+                            <td>{{i.date}}</td>
+                            <td>{{i.filters}}</td>
+                            <td>{{i.liquid_case}}</td>
+                        </tr>
+                    {%endfor%}

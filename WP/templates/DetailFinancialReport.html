@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+ {% load staticfiles %}
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Water Plant Details Management S">
+    <meta name="author" content="Shashwat Sanket">
+
+    <title>WPDMS</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="{% static 'vendor/metisMenu/metisMenu.min.css' %}" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="{% static 'dist/css/sb-admin-2.css' %}" rel="stylesheet">
+
+    <!-- Morris Charts CSS -->
+    <link href="{% static 'vendor/morrisjs/morris.css' %}" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="{% static 'vendor/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+<style>
+
+.mywrapper {
+    margin-top: 40px;
+    margin-left: 60px;
+    margin-bottom: 40px;
+    margin-right: 60px;
+    border-style: groove;
+    border-radius: 10px;
+    border-color: #337AB7;
+    background-color: #ffffff;
+    padding: 10px;
+}
+
+@media print {  
+  @page {
+    size: 500mm 290mm; /* landscape */
+    /* you can also specify margins here: */
+     /* for compatibility with both A4 and Letter */
+     margin-top: 1mm;
+  }
+}
+</style>
+</head>
+
+<body class="mywrapper">
+            <!--   Report  Content   -->
+            <input class="btn btn-primary" type="button" value="Print" onclick="window.print()" >     
+        <div class="row">
+            <div class="col-lg-12"> 
+               <center> <h1 style="color:#3070a5" class="page-header">Financial Report For Water Plant:{{wp}}</h1></center>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <span style="font-size: 25px"><i class="fa fa-cube"></i>  Basic Information</span>
+                    </div>
+                    <div class="panel-body">
+
+                        <div class="row">
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                        <center><label style="font-size: 20px;color:#3070a5;">District</label></center>
+                                    <p class="form-control" style="font-size: 20px;"><strong>{{wp.loc.district}}</strong></p>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                    <div class="form-group">
+                                            <center><label style="font-size: 20px;color:#3070a5;">Mandal</label></center>
+                                        <p class="form-control" style="font-size: 20px;"><strong>{{wp.loc.mandal}}</strong></p>
+                                    </div>
+                            </div>
+                            <div class="col-lg-3">
+                                    <div class="form-group">
+                                            <center><label style="font-size: 20px;color:#3070a5;">Gram Panchayat</label></center>
+                                        <p class="form-control " style="font-size: 20px;"><strong>{{wp.loc.gram_panchayat}}</strong></p>
+                                    </div>
+                            </div>
+                            <div class="col-lg-2">
+                                    <div class="form-group">
+                                            <center><label style="font-size: 20px;color:#3070a5;">Village</label></center>
+                                        <p class="form-control" style="font-size: 20px;"><strong>{{wp.loc.village}}</strong></p>
+                                    </div>
+                            </div>
+                            <div class="col-lg-3">
+                                    <div class="form-group">
+                                            <center><label style="font-size: 20px;color:#3070a5;">Constency</label></center>
+                                        <p class="form-control" style="font-size: 20px;"><strong>{{wp.loc.constency}}</strong></p>
+                                    </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                        <label style="font-size: 20px;color:#3070a5;">Date of Establishment:</label>
+                                        <p class="checkbox-inline" style="font-size: 20px"><strong>{{wp.date}}</strong></p>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                            <center><label style="font-size: 20px;color:#3070a5;">Capacity</label></center>
+                                            <p class="form-control" style="font-size: 20px"><strong>{{wp.capacity}}</strong></p>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                        <div class="form-group">
+                                                <center><label style="font-size: 20px;color:#3070a5;">Population</label></center>
+                                                <p class="form-control" style="font-size: 20px;"><strong>{{wp.populations}}</strong></p>
+                                        </div>
+                                </div>
+                                <div class="col-lg-4">
+                                        <div class="form-group">
+                                                <center><label style="font-size: 20px;color:#3070a5;">Category</label></center>
+                                                {% if wp.is_amc %}
+                                                <p class="form-control" style="font-size: 20px;"><strong>AMC Water Plant</strong></p>
+                                                {% else %}
+                                                <p class="form-control" style="font-size: 20px;"><strong>New Water Plant</strong></p>
+                                                {% endif %}
+                                        </div>
+                                </div>
+                            
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                               <center><label style="font-size: 20px;color:#3070a5;">Contact Person</label><p class="form-control" style="font-size: 20px;"><strong>{{wp.contact_person}}</strong></p></center>
+                            </div>
+                            <div class="col-lg-6">
+                                    <center><label style="font-size: 20px;color:#3070a5;">Phone Number</label><p class="form-control" style="font-size: 20px;"><strong>{{wp.contact_number}}</strong></p></center>
+                            </div>
+                        </div>
+                        <div class="row">
+                                <div class="col-lg-6">
+                                   <center><label style="font-size: 20px;color:#3070a5;">Operator Person</label><p class="form-control" style="font-size: 20px;"><strong>{{wp.operator_name}}</strong></p></center>
+                                </div>
+                                <div class="col-lg-6">
+                                        <center><label style="font-size: 20px;color:#3070a5;">Operator Phone Number</label><p class="form-control" style="font-size: 20px;"><strong>{{wp.operator_phone_number}}</strong></p></center>
+                                </div>
+                            </div>
+                    </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-12">
+                    <h1 class="page-header" style="color:#5CB85C;"><i class="fa fa-rupee"></i>  Financial Report </h1>               
+                </div>
+                {% for i in FinancialReport %}
+                <div class="col-lg-12">
+                    <div class="panel panel-green">
+                        <div class="panel-heading">
+                                <span style="font-size: 25px" >Monthly Financial Stats for year {{i.year}}</span>
+                        </div>
+                        <div class="panel-body">
+                                <div style="overflow-x:auto;">
+                                        <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                            <thead>
+                                            <tr>
+                                                <th style="font-size: 20px;color: #5CB85C">Months</th>
+                                                <th style="font-size: 20px;color: #5CB85C">Filters</th>
+                                                <th style="font-size: 20px;color: #5CB85C">Cost per Filter</th>
+                                                <th style="font-size: 20px;color: #5CB85C">Liquid Case</th>
+                                                <th style="font-size: 20px;color: #5CB85C">Cost per liquid Case</th>
+                                                <th style="font-size: 20px;color: #5CB85C">Costing Date</th> 
+                                            </tr>
+                                            </thead>
+                                            <tbody id="consumable_track_data">
+                                                <tr class="odd gradeX">
+                                                        <td style="font-size: 20px;color: #5CB85C">January</td>
+                                                    {% if not i.Jan %}
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                    {% else %}
+                                                        <td class="success"><i class="fa fa-rupee"></i>{{i.Jan.filters}}</td>
+                                                        <td class="success"><i class="fa fa-rupee"></i>{{i.Jan.costing_obj.filters}}</td>
+                                                        <td class="success"><i class="fa fa-rupee"></i>{{i.Jan.liquid_case}}</td>
+                                                        <td class="success"><i class="fa fa-rupee"></i>{{i.Jan.costing_obj.liquid}}</td>
+                                                        <td class="success">{{i.Jan.costing_obj.date}}</td>
+                                                    {% endif %}
+                                                </tr>
+                                                <tr>    
+                                                    <td style="font-size: 20px;color: #5CB85C">February</td>
+                                                    {% if not i.Feb %}
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                    {% else %}
+                                                    <td class="success"><i class="fa fa-rupee"></i>{{i.Feb.filters}}</td>
+                                                        <td class="success"><i class="fa fa-rupee"></i>{{i.Feb.costing_obj.filters}}</td>
+                                                        <td class="success"><i class="fa fa-rupee"></i>{{i.Feb.liquid_case}}</td>
+                                                        <td class="success"><i class="fa fa-rupee"></i>{{i.Feb.costing_obj.liquid}}</td>
+                                                        <td class="success">{{i.Feb.costing_obj.date}}</td>
+                                                    {% endif %}
+                                                </tr>
+                                                <tr>
+                                                    <td style="font-size: 20px;color: #5CB85C">March</td>
+                                                    {% if not i.March %}
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                    {% else %}
+                                                    <td class="success"><i class="fa fa-rupee"></i>{{i.March.filters}}</td>
+                                                        <td class="success"><i class="fa fa-rupee"></i>{{i.March.costing_obj.filters}}</td>
+                                                        <td class="success"><i class="fa fa-rupee"></i>{{i.March.liquid_case}}</td>
+                                                        <td class="success"><i class="fa fa-rupee"></i>{{i.March.costing_obj.liquid}}</td>
+                                                        <td class="success">{{i.March.costing_obj.date}}</td>
+                                                    {% endif %}
+                                                </tr>
+                                                <tr>
+                                                    <td style="font-size: 20px;color: #5CB85C">April</td>
+                                                    {% if not i.April %}
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                    {% else %}
+                                                    <td class="success"><i class="fa fa-rupee"></i>{{i.April.filters}}</td>
+                                                        <td class="success"><i class="fa fa-rupee"></i>{{i.April.costing_obj.filters}}</td>
+                                                        <td class="success"><i class="fa fa-rupee"></i>{{i.April.liquid_case}}</td>
+                                                        <td class="success"><i class="fa fa-rupee"></i>{{i.April.costing_obj.liquid}}</td>
+                                                        <td class="success">{{i.April.costing_obj.date}}</td>
+                                                    {% endif %}
+                                                </tr>
+                                                <tr>
+                                                    <td style="font-size: 20px;color: #5CB85C">May</td>
+                                                    {% if not i.May %}
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                    {% else %}
+                                                    <td class="success"><i class="fa fa-rupee"></i>{{i.May.filters}}</td>
+                                                        <td class="success"><i class="fa fa-rupee"></i>{{i.May.costing_obj.filters}}</td>
+                                                        <td class="success"><i class="fa fa-rupee"></i>{{i.May.liquid_case}}</td>
+                                                        <td class="success"><i class="fa fa-rupee"></i>{{i.May.costing_obj.liquid}}</td>
+                                                        <td class="success">{{i.May.costing_obj.date}}</td>
+                                                    {% endif %}
+                                                </tr>
+                                                <tr>
+                                                    <td style="font-size: 20px;color: #5CB85C">June</td>
+                                                    {% if not i.June %}
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                    {% else %}
+                                                    <td class="success"><i class="fa fa-rupee"></i>{{i.June.filters}}</td>
+                                                        <td class="success"><i class="fa fa-rupee"></i>{{i.June.costing_obj.filters}}</td>
+                                                        <td class="success"><i class="fa fa-rupee"></i>{{i.June.liquid_case}}</td>
+                                                        <td class="success"><i class="fa fa-rupee"></i>{{i.June.costing_obj.liquid}}</td>
+                                                        <td class="success">{{i.June.costing_obj.date}}</td>
+                                                    {% endif %}
+                                                </tr>
+                                                <tr>
+                                                    <td style="font-size: 20px;color: #5CB85C">July</td>
+                                                    {% if not i.July %}
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                    {% else %}
+                                                    <td class="success"><i class="fa fa-rupee"></i>{{i.July.filters}}</td>
+                                                        <td class="success"><i class="fa fa-rupee"></i>{{i.July.costing_obj.filters}}</td>
+                                                        <td class="success"><i class="fa fa-rupee"></i>{{i.July.liquid_case}}</td>
+                                                        <td class="success"><i class="fa fa-rupee"></i>{{i.July.costing_obj.liquid}}</td>
+                                                        <td class="success">{{i.July.costing_obj.date}}</td>
+                                                    {% endif %}
+                                                </tr>
+                                                <tr>
+                                                    <td style="font-size: 20px;color: #5CB85C">August</td>
+                                                    {% if not i.Aug %}
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                    {% else %}
+                                                    <td class="success"><i class="fa fa-rupee"></i>{{i.Aug.filters}}</td>
+                                                        <td class="success"><i class="fa fa-rupee"></i>{{i.Aug.costing_obj.filters}}</td>
+                                                        <td class="success"><i class="fa fa-rupee"></i>{{i.Aug.liquid_case}}</td>
+                                                        <td class="success"><i class="fa fa-rupee"></i>{{i.Aug.costing_obj.liquid}}</td>
+                                                        <td class="success">{{i.Aug.costing_obj.date}}</td>
+                                                    {% endif %}
+                                                </tr>
+                                                <tr>
+                                                    <td style="font-size: 20px;color: #5CB85C">September</td>
+                                                    {% if not i.Sept %}
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                    {% else %}
+                                                    <td class="success"><i class="fa fa-rupee"></i>{{i.Sept.filters}}</td>
+                                                        <td class="success"><i class="fa fa-rupee"></i>{{i.Sept.costing_obj.filters}}</td>
+                                                        <td class="success"><i class="fa fa-rupee"></i>{{i.Sept.liquid_case}}</td>
+                                                        <td class="success"><i class="fa fa-rupee"></i>{{i.Sept.costing_obj.liquid}}</td>
+                                                        <td class="success">{{i.Sept.costing_obj.date}}</td>
+                                                    {% endif %}
+                                                </tr>
+                                                <tr>
+                                                    <td style="font-size: 20px;color: #5CB85C">October</td>
+                                                    {% if not i.Oct %}
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                    {% else %}
+                                                    <td class="success"><i class="fa fa-rupee"></i>{{i.Oct.filters}}</td>
+                                                        <td class="success"><i class="fa fa-rupee"></i>{{i.Oct.costing_obj.filters}}</td>
+                                                        <td class="success"><i class="fa fa-rupee"></i>{{i.Oct.liquid_case}}</td>
+                                                        <td class="success"><i class="fa fa-rupee"></i>{{i.Oct.costing_obj.liquid}}</td>
+                                                        <td class="success">{{i.Oct.costing_obj.date}}</td>
+                                                    {% endif %}
+                                                </tr>
+                                                <tr>
+                                                    <td style="font-size: 20px;color: #5CB85C">November</td>
+                                                    {% if not i.Nov %}
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                    {% else %}
+                                                    <td class="success"><i class="fa fa-rupee"></i>{{i.Nov.filters}}</td>
+                                                        <td class="success"><i class="fa fa-rupee"></i>{{i.Nov.costing_obj.filters}}</td>
+                                                        <td class="success"><i class="fa fa-rupee"></i>{{i.Nov.liquid_case}}</td>
+                                                        <td class="success"><i class="fa fa-rupee"></i>{{i.Nov.costing_obj.liquid}}</td>
+                                                        <td class="success">{{i.Nov.costing_obj.date}}</td>
+                                                    {% endif %}
+                                                </tr>
+                                                <tr>
+                                                    <td style="font-size: 20px;color: #5CB85C">December</td>
+                                                    {% if not i.Dec %}
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                    {% else %}
+                                                    <td class="success"><i class="fa fa-rupee"></i>{{i.Dec.filters}}</td>
+                                                        <td class="success"><i class="fa fa-rupee"></i>{{i.Dec.costing_obj.filters}}</td>
+                                                        <td class="success"><i class="fa fa-rupee"></i>{{i.Dec.liquid_case}}</td>
+                                                        <td class="success"><i class="fa fa-rupee"></i>{{i.Dec.costing_obj.liquid}}</td>
+                                                        <td class="success">{{i.Dec.costing_obj.date}}</td>
+                                                    {% endif %}
+
+                                                    
+                                                </tr>
+
+                                            </tbody>
+                                            </table>
+                                        </div>
+                        </div>
+                    </div>
+
+                </div>
+                {%endfor%}
+                <div class="col-lg-12">
+                        <h1 class="page-header" style="color: #4B3F91"><span class="fa fa-thumb-tack"></span> Final Accounting</h1>
+                </div>
+                <div class="col-lg-12">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                            <span style="font-size: 25px" ><i class="fa  fa-archive "></i> Accounting Table</span> 
+                    </div>
+                    <div class="panel-body">
+                            <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                <thead>
+                                    <tr class="odd gradeX">
+                                        <th>Category</th>
+                                        <th>Cost</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for i in FinancialReport %}
+                                    <tr class="odd gradeX">
+                                        <td>Financial Cosumbale Cost for {{i.year}}</td>
+                                        <td id="icost{{i.year}}"></td>
+                                         
+                                    </tr>
+                                    {% endfor %}
+                                    <tr class="odd gradeX">
+                                            <td><strong>Total</strong></td>
+                                            <td class="success"><i class="fa fa-rupee"></i> {{total}}</td> 
+                                    </tr>
+                                </tbody>
+                            </table>  
+                    </div>
+                </div>
+    
+                </div>
+            
+            
+
+            </div>
+
+
+        <br>
+        {% for i in FinancialReport %}
+        <script>
+            document.getElementById('icost{{i.year}}').innerHTML=parseInt('{{i.filters_cost}}')+parseInt('{{i.liquid_cost}}');
+        </script>    
+        {% endfor%}    
+        
+
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="{% static 'vendor/metisMenu/metisMenu.min.js' %}"></script>
+
+    <!-- Morris Charts JavaScript -->
+    <script src="{% static 'vendor/raphael/raphael.min.js' %}"></script>
+    <script src="{% static 'vendor/morrisjs/morris.min.js' %}"></script>
+    <script src="{% static 'data/morris-data.js' %}"></script>
+
+    <script src="{% static 'vendor/datatables/js/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'vendor/datatables-plugins/dataTables.bootstrap.min.js' %}"></script>
+    <script src="{% static 'vendor/datatables-responsive/dataTables.responsive.js' %}"></script>   
+    <!-- Custom Theme JavaScript -->
+    <script src="{% static 'dist/js/sb-admin-2.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/myjs.js' %}"></script>
+
+</body>
+
+
+</html>
