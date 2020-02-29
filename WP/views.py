@@ -143,8 +143,8 @@ def CreateWaterPlant(request):
         success_message=[]
         if(int(populations)<=0):
             error_message.append("Population should be greater than 0")
-        if(int(float(capacity))<=0):
-            error_message.append("Capacity should be greater than 0")
+        # if(int(float(capacity))<=0):
+        #     error_message.append("Capacity should be greater than 0")
         if(len(contact_number)<10 or not contact_number.isdigit()):
             error_message.append("Contact Number should be of 10 digits")
         if(len(operator_phone_number)<10 or not operator_phone_number.isdigit()):
@@ -960,6 +960,7 @@ def AddRepairParts(request):
         parts=request.POST.get('parts')
         description=request.POST.get('description')
         amount=request.POST.get('amount')
+        date = request.POST.get('date')
         district=request.POST.get('district')
         mandal=request.POST.get('mandal')
         gram_panchayat=request.POST.get('gram_panchayat')
@@ -971,13 +972,18 @@ def AddRepairParts(request):
             d=float(amount)
         except:
             context['error_message'].append('Amount should be in digits or decimal')
+        try:
+            date=dt.strptime(date,"%Y-%m-%d")#datetype format
+        except:
+            context['error_message'].append('Please check the date')
         locs=WaterPlantLoc.objects.get(district=district,mandal=mandal,gram_panchayat=gram_panchayat,village=village,constency=constency)
         wp=WaterPlant.objects.get(loc=locs)
         if(len(context['error_message'])>0):
             return render(request,'repair_parts.html',context)
         else:
-            rp=repair_parts(WP=wp,parts=parts,description=description,amount=amount)
+            rp=repair_parts(WP=wp,parts=parts,description=description,amount=amount,date=date)
             rp.save()
+            print(rp.date)
             context['success_message'].append('Repair Part Successfully added')
             return render(request,'repair_parts.html',context)
 
@@ -1135,8 +1141,8 @@ def view_consumable_track(request):
             year=2018
         wp_name=i
         report=consumable_report(c_list,year,wp_name)
-        data.append(report)
-    print(data[0].Jan)    
+        print(report)
+        data.append(report)   
     return render(request,'view_consumable_track.html',{'data':data})
 
 @login_required
@@ -1515,15 +1521,17 @@ def complete_water_plant_report(request,pk):
     #Consumable Track
     years=get_years_by_wp(wp.pk)
     c_list=Consumables.objects.filter(WP=wp.pk)
-    for i in years:
-        report=consumable_report(c_list,i,str(wp))
-        ConsumableReport.append(report)
+    if(years):
+        for i in years:
+            report=consumable_report(c_list,i,str(wp))
+            ConsumableReport.append(report)
     #Financial Report
     cost=Cost.objects.all().order_by('date')
     FinancialReport=[]
-    for i in years:
-        report=financial_report(c_list,i,wp,cost)
-        FinancialReport.append(report)
+    if(years):
+        for i in years:
+            report=financial_report(c_list,i,wp,cost)
+            FinancialReport.append(report)
     #Repair Parts
     RepairParts=repair_parts.objects.filter(WP=wp.pk)
     cost=0
